@@ -8,7 +8,8 @@ export class TodoItem extends Component {
       background: '#f3f3',
       padding: '10px',
       borderBottom: '2px #333 dotted',
-      textDecoration: this.props.todo.isCompleted ? "line-through" : "none"
+      textDecoration: this.props.todo.isCompleted ? "line-through" : "none",
+      
     }
   } 
 
@@ -17,7 +18,7 @@ export class TodoItem extends Component {
     return (
       <div style={this.getStyle()}>
         <p>
-          <input type="checkbox" onChange={this.props.setComplete.bind(this, id)}/>{"    "}
+          <input type="checkbox" defaultChecked={this.props.todo.isCompleted} onChange={this.props.setComplete.bind(this, id)}/>{"    "}
           {title}
           <button onClick={this.props.delTodo.bind(this, id)}>X</button>
         </p>
