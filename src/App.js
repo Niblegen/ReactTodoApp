@@ -15,7 +15,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/todos/?_limit=10')
+    axios.get('https://jsonplaceholder.typicode.com/todos/?_limit=2')
       .then(res => this.setState({ todos: res.data}))
   }
   
@@ -24,7 +24,7 @@ class App extends Component {
     this.setState({
       todos: this.state.todos.map(todo => {
         if(todo.id === id){
-          todo.isCompleted = !todo.isCompleted
+          todo.completed = !todo.completed
         }
         return todo;
       })
@@ -41,10 +41,12 @@ class App extends Component {
   addTodo = (title) => {
     axios.post('https://jsonplaceholder.typicode.com/todos', {
       title,
-      isCompleted: false
+      completed: false,
+      
     })
     .then(res => this.setState({todos : [...this.state.todos, res.data]}));
   }
+
   render(){
     return(
       <Router>
@@ -55,7 +57,7 @@ class App extends Component {
               <React.Fragment>
                 <AddTodo AddTodo = {this.addTodo}/>
                 <Todos
-                  todo = {this.state.todos} 
+                  todos = {this.state.todos} 
                   setComplete = {this.setComplete}
                   delTodo = {this.delTodo}
                 />

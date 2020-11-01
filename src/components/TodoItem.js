@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
+import { Checkbox, IconButton, Grid, Typography  } from '@material-ui/core';
+import {DeleteForever} from '@material-ui/icons';
 
 export class TodoItem extends Component {
 
@@ -8,27 +9,34 @@ export class TodoItem extends Component {
       background: '#f3f3',
       padding: '10px',
       borderBottom: '2px #333 dotted',
-      textDecoration: this.props.todo.isCompleted ? "line-through" : "none",
+      textDecoration: this.props.todo.completed ? "line-through" : "none",
       
     }
   } 
 
   render() {
-    const { id, title} = this.props.todo
+    let { id, title } = this.props.todo
     return (
       <div style={this.getStyle()}>
-        <p>
-          <input type="checkbox" defaultChecked={this.props.todo.isCompleted} onChange={this.props.setComplete.bind(this, id)}/>{"    "}
-          {title}
-          <button onClick={this.props.delTodo.bind(this, id)}>X</button>
-        </p>
+        <Grid container spacing={3} justify="center">
+          <Grid item xs={1}>
+            <Checkbox 
+              checked={this.props.todo.completed}
+              onChange={this.props.setComplete.bind(this, id)}
+            />
+          </Grid>
+          <Grid item xs={10}>
+          <Typography justify="center" align="left">{title}</Typography>
+          </Grid>
+          <Grid item xs={1}>
+            <IconButton onClick={this.props.delTodo.bind(this, id)} aria-label="delete">
+              <DeleteForever color="secondary"/>
+            </IconButton>
+          </Grid>
+        </Grid>
       </div>
     )
   }
 }
-
-TodoItem.propTypes = {
-  todo: PropTypes.object.isRequired
-} 
 
 export default TodoItem
